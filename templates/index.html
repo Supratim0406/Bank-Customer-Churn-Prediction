@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bank Customer Churn Prediction</title>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+    <!-- Wider container, large padding -->
+    <div class="bg-white shadow-2xl rounded-2xl p-16 w-full max-w-6xl">
+
+        <h2 class="text-4xl font-bold text-center mb-10 text-blue-700 tracking-wide">
+            Bank Customer Churn Prediction
+        </h2>
+
+        <!-- FORM STARTS HERE -->
+        <form id="prediction-form" action="/predict" method="post" class="grid grid-cols-2 gap-8">
+
+            <!-- Credit Score -->
+            <div>
+                <label class="block text-lg font-medium text-gray-800">Credit Score</label>
+                <input type="number" name="credit_score" required
+                    class="mt-2 w-full border-2 rounded-lg px-4 py-3 text-lg focus:ring focus:ring-blue-300">
+            </div>
+
+            <!-- Country -->
+            <div>
+                <label class="block text-lg font-medium text-gray-800">Country</label>
+                <select name="country" required
+                    class="mt-2 w-full border-2 rounded-lg px-4 py-3 text-lg bg-white focus:ring focus:ring-blue-300">
+                    <option value="France">France</option>
+                    <option value="Spain">Spain</option>
+                    <option value="Germany">Germany</option>
+                </select>
+            </div>
+
+            <!-- Gender -->
+            <div>
+                <label class="block text-lg font-medium text-gray-800">Gender</label>
+                <select name="gender" required
+                    class="mt-2 w-full border-2 rounded-lg px-4 py-3 text-lg bg-white focus:ring focus:ring-blue-300">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+
+            <!-- Age -->
+            <div>
+                <label class="block text-lg font-medium text-gray-800">Age</label>
+                <input type="number" name="age" required
+                    class="mt-2 w-full border-2 rounded-lg px-4 py-3 text-lg focus:ring focus:ring-blue-300">
+            </div>
+
+            <!-- Tenure -->
+            <div>
+                <label class="block text-lg font-medium text-gray-800">Tenure (Years)</label>
+                <input type="number" name="tenure" required
+                    class="mt-2 w-full border-2 rounded-lg px-4 py-3 text-lg focus:ring focus:ring-blue-300">
+            </div>
+
+            <!-- Balance -->
+            <div>
+                <label class="block text-lg font-medium text-gray-800">Account Balance</label>
+                <input type="number" name="balance" step="0.01" required
+                    class="mt-2 w-full border-2 rounded-lg px-4 py-3 text-lg focus:ring focus:ring-blue-300">
+            </div>
+
+            <!-- Number of Products -->
+            <div>
+                <label class="block text-lg font-medium text-gray-800">Number of Products</label>
+                <input type="number" name="products_number" required
+                    class="mt-2 w-full border-2 rounded-lg px-4 py-3 text-lg focus:ring focus:ring-blue-300">
+            </div>
+
+            <!-- Has Credit Card -->
+            <div>
+                <label class="block text-lg font-medium text-gray-800">Has Credit Card?</label>
+                <select name="credit_card" required
+                    class="mt-2 w-full border-2 rounded-lg px-4 py-3 text-lg bg-white focus:ring focus:ring-blue-300">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+
+            <!-- Is Active Member -->
+            <div>
+                <label class="block text-lg font-medium text-gray-800">Active Member?</label>
+                <select name="active_member" required
+                    class="mt-2 w-full border-2 rounded-lg px-4 py-3 text-lg bg-white focus:ring focus:ring-blue-300">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+
+            <!-- Estimated Salary -->
+            <div>
+                <label class="block text-lg font-medium text-gray-800">Estimated Salary</label>
+                <input type="number" name="estimated_salary" step="0.01" required
+                    class="mt-2 w-full border-2 rounded-lg px-4 py-3 text-lg focus:ring focus:ring-blue-300">
+            </div>
+        </form>
+
+        <!-- Submit Button -->
+        <div class="mt-10">
+            <button type="submit" form="prediction-form"
+                class="w-full bg-blue-600 text-white py-4 text-2xl rounded-xl hover:bg-blue-700 transition">
+                🔍 Predict Churn
+            </button>
+        </div>
+
+        <!-- Prediction Result -->
+        {% if Prediction %}
+        <div class="mt-10 text-2xl font-semibold p-6 rounded-xl 
+            {% if Prediction == 'Churn' %}
+                bg-red-100 border-l-8 border-red-600 text-red-700
+            {% else %}
+                bg-green-100 border-l-8 border-green-600 text-green-700
+            {% endif %}
+        ">
+            Prediction: {{ Prediction }} <br>
+            Churn Probability: {{ Probability }}% <br>
+            Threshold Used: {{ Threshold }}
+        </div>
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
